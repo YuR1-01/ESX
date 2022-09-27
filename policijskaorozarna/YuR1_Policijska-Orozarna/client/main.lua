@@ -1,8 +1,8 @@
 ESX = nil
 
-Citizen.CreateThread(function()
+CreateThread(function()
     while ESX == nil do
-        Citizen.Wait(5)
+        Wait(5)
 
 		TriggerEvent("esx:getSharedObject", function(library)
 			ESX = library
@@ -28,8 +28,8 @@ AddEventHandler("esx:setJob", function(response)
 	ESX.PlayerData["job"] = response
 end)
 
-Citizen.CreateThread(function()
-	Citizen.Wait(100)
+CreateThread(function()
+	Wait(100)
 
 	while true do
 		local sleepThread = 500
@@ -58,7 +58,7 @@ Citizen.CreateThread(function()
 			end
 		end
 
-		Citizen.Wait(sleepThread)
+		Wait(sleepThread)
 	end
 end)
 
@@ -134,7 +134,7 @@ OpenWeaponStorage = function()
 		if not NetworkHasControlOfEntity(closestPed) then
 			NetworkRequestControlOfEntity(closestPed)
 
-			Citizen.Wait(1000)
+			Wait(1000)
 		end
 
 		SetEntityCoords(closestPed, PedLocation["x"], PedLocation["y"], PedLocation["z"] - 0.985)
@@ -151,18 +151,18 @@ OpenWeaponStorage = function()
 		if DoesEntityExist(closestPed) and closestPedDst <= 5.0 then
 			TaskPlayAnim(closestPed, animLib, anim .. "_on_counter_cop", 1.0, -1.0, 1.0, 0, 0, 0, 0, 0)
 
-			Citizen.Wait(1100)
+			Wait(1100)
 
 			GiveWeaponToPed(closestPed, GetHashKey(weaponHash), 1, false, true)
 			SetCurrentPedWeapon(closestPed, GetHashKey(weaponHash), true)
 
 			TaskPlayAnim(PlayerPedId(), animLib, anim .. "_on_counter", 1.0, -1.0, 1.0, 0, 0, 0, 0, 0)
 
-			Citizen.Wait(3100)
+			Wait(3100)
 
 			RemoveWeaponFromPed(closestPed, GetHashKey(weaponHash))
 
-			Citizen.Wait(15)
+			Wait(15)
 
 			GiveWeaponToPed(PlayerPedId(), GetHashKey(weaponHash), Config.ReceiveAmmo, false, true)
 			SetCurrentPedWeapon(PlayerPedId(), GetHashKey(weaponHash), true)
@@ -217,13 +217,13 @@ LoadModels = function(models)
 			while not HasModelLoaded(model) do
 				RequestModel(model)
 	
-				Citizen.Wait(10)
+				Wait(10)
 			end
 		else
 			while not HasAnimDictLoaded(model) do
 				RequestAnimDict(model)
 	
-				Citizen.Wait(10)
+				Wait(10)
 			end    
 		end
 	end
